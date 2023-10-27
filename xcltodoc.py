@@ -3,6 +3,7 @@ import openpyxl
 import requests
 from bs4 import BeautifulSoup
 from docx import Document
+import os
 
 # Function to process the Excel file
 def process_excel(excel_file):
@@ -43,9 +44,11 @@ def main():
 
         if st.button("Process and Download"):
             process_excel(uploaded_file)
-
             st.success("Processing complete. Click below to download the Word document.")
-            st.markdown('[Download Word Document](output_document.docx)')
+
+            # Provide a download link to the Word document
+            with open("output_document.docx", "rb") as docx_file:
+                st.download_button("Download Word Document", docx_file)
 
 if __name__ == "__main__":
     main()
