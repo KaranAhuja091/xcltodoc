@@ -1,5 +1,4 @@
-openpyxl
-eventregistry
-future
-python-docx
 streamlit
+openpyxl
+BeautifulSoup
+python-docx
