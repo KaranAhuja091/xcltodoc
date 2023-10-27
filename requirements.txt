@@ -2,3 +2,4 @@ eventregistry
 future
 python-docx
 streamlit
+openpyxl
