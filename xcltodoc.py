@@ -14,9 +14,8 @@ def process_excel(excel_file):
     for sheet_name in workbook.sheetnames:
         sheet = workbook[sheet_name]
 
-        for row in sheet.iter_rows(min_col=2, max_col=3, values_only=True):
-            content = row[0]
-            url = row[1]
+        for row in sheet.iter_rows(min_col=3, max_col=3, values_only=True):
+            url = row[0]
 
             if url is not None and url.strip() != "":
                 response = requests.get(url)
@@ -25,18 +24,12 @@ def process_excel(excel_file):
                     soup = BeautifulSoup(response.text, 'html.parser')
                     title = soup.find('h1')
 
-                    if content:
-                        doc.add_paragraph(content)
-
                     if title:
                         doc.add_heading(title.text, level=1)
 
                     paragraphs = soup.find_all('p')
                     for paragraph in paragraphs:
                         doc.add_paragraph(paragraph.get_text())
-
-                    if url:
-                        doc.add_paragraph(f"Source URL: {url}")
 
     output_file_path = "output_document.docx"
     doc.save(output_file_path)
