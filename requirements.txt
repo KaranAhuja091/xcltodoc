@@ -2,3 +2,4 @@ streamlit
 openpyxl
 Beautifulsoup4
 python-docx
+docx2txt
