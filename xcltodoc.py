@@ -1,10 +1,8 @@
-
 import streamlit as st
 import openpyxl
 import requests
 from bs4 import BeautifulSoup
 from docx import Document
-import docx2txt
 import os
 
 # Function to process the Excel file
@@ -42,9 +40,6 @@ def process_excel(excel_file):
 
     output_file_path = "output_document.docx"
     doc.save(output_file_path)
-    
-    # Convert .docx to .doc
-    docx2txt.process(output_file_path)
 
 # Streamlit app
 def main():
@@ -60,7 +55,7 @@ def main():
             st.success("Processing complete. Click below to download the Word document.")
 
             # Provide a download link to the Word document
-            with open("output_document.doc", "rb") as doc_file:
+            with open("output_document.docx", "rb") as doc_file:
                 st.download_button("Download Word Document", doc_file)
 
 if __name__ == "__main__":
