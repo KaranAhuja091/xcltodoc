@@ -23,7 +23,7 @@ def process_excel(excel_file):
 
                     if response.status_code == 200:
                         soup = BeautifulSoup(response.text, 'html.parser')
-                        title = soup find('h1')
+                        title = soup.find('h1')
 
                         if content:
                             doc.add_paragraph(content)
