@@ -23,7 +23,7 @@ def process_excel(excel_file):
 
                     if response.status_code == 200:
                         soup = BeautifulSoup(response.text, 'html.parser')
-                        title = soup.find('h1')
+                        title = soup find('h1')
 
                         if content:
                             doc.add_paragraph(content)
@@ -41,6 +41,8 @@ def process_excel(excel_file):
     output_file_path = "output_document.docx"
     doc.save(output_file_path)
 
+    return output_file_path
+
 # Streamlit app
 def main():
     st.title("Excel to Word Processor")
@@ -51,12 +53,13 @@ def main():
         st.write("File Uploaded: ", uploaded_file.name)
 
         if st.button("Process and Download"):
-            process_excel(uploaded_file)
+            output_file_path = process_excel(uploaded_file)
             st.success("Processing complete. Click below to download the Word document.")
 
             # Provide a download link to the Word document
-            with open("output_document.docx", "rb") as doc_file:
-                st.download_button("Download Word Document", doc_file)
+            if os.path.exists(output_file_path):
+                with open(output_file_path, "rb") as doc_file:
+                    st.download_button("Download Word Document", doc_file)
 
 if __name__ == "__main__":
     main()
