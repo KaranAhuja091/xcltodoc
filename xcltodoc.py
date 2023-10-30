@@ -18,25 +18,26 @@ def process_excel(excel_file):
             content = row[0]
             url = row[1]
 
-            if url is not None and url.strip() != "":
-                response = requests.get(url)
+            if content and url:
+                if url is not None and url.strip() != "":
+                    response = requests.get(url)
 
-                if response.status_code == 200:
-                    soup = BeautifulSoup(response.text, 'html.parser')
-                    title = soup.find('h1')
+                    if response.status_code == 200:
+                        soup = BeautifulSoup(response.text, 'html.parser')
+                        title = soup.find('h1')
 
-                    if content:
-                        doc.add_paragraph(content)
+                        if content:
+                            doc.add_paragraph(content)
 
-                    if title:
-                        doc.add_heading(title.text, level=1)
+                        if title:
+                            doc.add_heading(title.text, level=1)
 
-                    paragraphs = soup.find_all('p')
-                    for paragraph in paragraphs:
-                        doc.add_paragraph(paragraph.get_text())
+                        paragraphs = soup.find_all('p')
+                        for paragraph in paragraphs:
+                            doc.add_paragraph(paragraph.get_text())
 
-                    if url:
-                        doc.add_paragraph(f"Source URL: {url}")
+                        if url:
+                            doc.add_paragraph(f"Source URL: {url}")
 
     output_file_path = "output_document.docx"
     doc.save(output_file_path)
